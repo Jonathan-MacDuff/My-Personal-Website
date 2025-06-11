@@ -12,6 +12,20 @@ code {
     monospace;
 }
 
+h1 {
+  display: flex;
+  justify-content: center;
+}
+
+p {
+  display: flex;
+  justify-content: center;
+  padding-left: 50px;
+  padding-right: 50px;
+  padding-top: 20px;
+  padding-bottom: 20px;
+}
+
 .navbar {
   background-color: #6b6b6b;
   padding: 10px;
