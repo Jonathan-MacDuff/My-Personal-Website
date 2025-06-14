@@ -1,6 +1,4 @@
-import React from "react";
 import logo from '../logo.svg';
-import Navbar from "../components/Navbar";
 
 function Home() {
 
@@ -22,6 +20,6 @@ function Home() {
             </header>
         </div>
     )
-}
+};
 
-export default Home
+export default Home;
