@@ -10,7 +10,16 @@ function Contact() {
                 <input type='tel' placeholder='Phone'/>
                 <input type='email' placeholder='Email'/>
                 <textarea placeholder='Message'/>
-                {/* add checkboxes for prefered contact method */}
+                <h3>Prefered contact method</h3>
+                    <label>Call
+                        <input type='checkbox'/>
+                    </label>
+                    <label>Text
+                        <input type='checkbox'/>
+                    </label>
+                    <label>Email
+                        <input type='checkbox'/>
+                    </label>
                 <button type='submit'>Submit</button>
             </form>
         </div>
