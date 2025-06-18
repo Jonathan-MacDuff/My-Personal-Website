@@ -6,10 +6,18 @@ function Contact() {
         <div>
             <h1>Contact Me</h1>
             <form>
-                <input type='name' placeholder='Name'/>
-                <input type='tel' placeholder='Phone'/>
-                <input type='email' placeholder='Email'/>
-                <textarea placeholder='Message'/>
+                <label>Full Name
+                    <input type='name'/>
+                </label>
+                <label>Phone Number
+                    <input type='tel'/>
+                </label>
+                <label>Email Address
+                    <input type='email'/>
+                </label>
+                <label>Message
+                    <textarea type='message'/>
+                </label>
                 <h3>Prefered contact method</h3>
                     <label>Call
                         <input type='checkbox'/>
