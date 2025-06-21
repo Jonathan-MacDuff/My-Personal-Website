@@ -28,7 +28,7 @@ function Contact() {
                     <label>Email
                         <input type='checkbox'/>
                     </label>
-                <button type='submit'>Submit</button>
+                <sl-button type='submit'>Submit</sl-button>
             </form>
         </div>
     )
