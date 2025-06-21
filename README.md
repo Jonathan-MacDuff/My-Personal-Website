@@ -8,19 +8,19 @@ This is my personal website, designed to house all my current and future persona
 
 # About.js
 
-This page is for a short bio.
+A short bio.
 
 # Contact.js
 
-This page is a contact form for getting into communication with me.
+A contact form for getting into communication with me.
 
 # Projects.js
 
-This page is a hub for my projects.
+A hub for my projects.
 
 # Home.js
 
-This is the landing page.
+The landing page.
 
 ## Components
 
