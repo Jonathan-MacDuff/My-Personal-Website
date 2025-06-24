@@ -9,6 +9,7 @@ function Navbar() {
         <li className="nav-link"><Link to='/about'>About</Link></li>
         <li className="nav-link"><Link to='/projects'>Projects</Link></li>
         <li className="nav-link"><Link to='/contact'>Contact</Link></li>
+        <li className="nav-link"><Link to='/links'>Links</Link></li>
       </ul>
     </nav>
   );
