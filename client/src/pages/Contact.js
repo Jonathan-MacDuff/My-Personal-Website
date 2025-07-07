@@ -3,9 +3,9 @@
 function Contact() {
 
     return (
-        <div>
+        <div className='form-container'>
             <h1>Contact Me</h1>
-            <form>
+            <form className='contact-form'>
                 <label>Full Name
                     <input type='name'/>
                 </label>
@@ -28,7 +28,7 @@ function Contact() {
                     <label>Email
                         <input type='checkbox'/>
                     </label>
-                <sl-button type='submit'>Submit</sl-button>
+                <button type='submit'>Submit</button>
             </form>
         </div>
     )
