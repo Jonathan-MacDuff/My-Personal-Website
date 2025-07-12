@@ -1,0 +1,13 @@
+{
+  "files": {
+    "main.css": "/Pet-Finder/static/css/main.5de5a225.css",
+    "main.js": "/Pet-Finder/static/js/main.3fd411e3.js",
+    "index.html": "/Pet-Finder/index.html",
+    "main.5de5a225.css.map": "/Pet-Finder/static/css/main.5de5a225.css.map",
+    "main.3fd411e3.js.map": "/Pet-Finder/static/js/main.3fd411e3.js.map"
+  },
+  "entrypoints": [
+    "static/css/main.5de5a225.css",
+    "static/js/main.3fd411e3.js"
+  ]
+}
