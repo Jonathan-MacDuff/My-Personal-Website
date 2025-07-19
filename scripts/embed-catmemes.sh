@@ -17,8 +17,8 @@ cd ../Cat-Meme-Generator/client || exit
 PUBLIC_URL=/Cat-Meme-Generator npm run build
 
 # Copy build into website's public folder
-rm -rf ../../../client/public/Cat-Meme-Generator/*
-cp -r build/* ../../../client/public/Cat-Meme-Generator/
+rm -rf ../../client/public/Cat-Meme-Generator/*
+cp -r build/* ../../client/public/Cat-Meme-Generator/
 
 echo "Cat Meme Generator React app embedded successfully!"
 END_COMMENT
