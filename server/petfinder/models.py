@@ -2,7 +2,7 @@ import bcrypt
 from sqlalchemy_serializer import SerializerMixin
 from sqlalchemy.ext.associationproxy import association_proxy
 
-from server.app import db
+from config import db
 
 
 

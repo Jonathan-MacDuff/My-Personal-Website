@@ -10,9 +10,9 @@ from datetime import datetime, timedelta
 from faker import Faker
 
 # Local imports
-from server.app import app, db
-# from server.config import db
-from server.models.petfinder import User, Pet, Report, Comment, Message
+from app import app
+from config import db
+from models import User, Pet, Report, Comment, Message
 
 if __name__ == '__main__':
     fake = Faker()

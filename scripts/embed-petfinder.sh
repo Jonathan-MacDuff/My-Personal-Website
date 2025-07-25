@@ -1,23 +1,42 @@
 #!/bin/bash
 
-echo "Building Pet-Finder React app..."
-cd ./Pet-Finder/client || exit
-PUBLIC_URL=/Pet-Finder npm run build
+set -e
 
-echo "Copying frontend build to personal site..."
-rm -rf ../../client/public/Pet-Finder/*
-cp -r build/* ../../client/public/Pet-Finder/
+SRC_DIR="Pet-Finder/server"
+DEST_DIR="server/petfinder"
 
-echo "Syncing backend files to website..."
+echo "🔄 Updating PetFinder backend in $DEST_DIR..."
 
-cd ../server || exit
-mkdir -p ../../server/models
-mkdir -p ../../server/seed
+# Ensure destination folder exists
+mkdir -p "$DEST_DIR"
 
-cp models.py ../../server/models/petfinder.py
-cp seed.py ../../server/seed/petfinder_seed.py
-cp config.py ../../server/config.py
+# Copy and overwrite critical files
+for file in app.py config.py models.py seed.py; do
+    echo "📦 Copying $file..."
+    cp -f "$SRC_DIR/$file" "$DEST_DIR/$file"
+done
 
-# Skip copying Pet-Finder migrations to avoid interfering with website backend
+# Copy migrations (overwrite if needed)
+if [ -d "$SRC_DIR/migrations" ]; then
+    echo "📂 Copying migrations folder..."
+    rm -rf "$DEST_DIR/migrations"
+    cp -r "$SRC_DIR/migrations" "$DEST_DIR/migrations"
+fi
 
-echo "Backend logic integrated. Pet-Finder embedding complete!"
+# Set working directory to petfinder
+cd "$DEST_DIR"
+
+# Set Flask app entry point
+export FLASK_APP=app.py
+
+# Initialize DB only if migrations folder wasn't already used
+if [ ! -d "migrations/versions" ]; then
+    echo "🚧 Initializing database..."
+    flask db init
+fi
+
+echo "🔧 Running migrations..."
+flask db migrate -m "Auto migration update"
+flask db upgrade
+
+echo "✅ PetFinder server files synced and database migrated successfully."
