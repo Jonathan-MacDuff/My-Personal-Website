@@ -2,7 +2,7 @@
 
 function Projects() {
   return (
-    <div>
+    <div className='projects-container'>
         <h1>My Projects</h1>
         <div>
           <a href='/Cat-Meme-Generator/index.html' target='_blank' rel='noopener noreferrer'>Cat Meme Generator</a>

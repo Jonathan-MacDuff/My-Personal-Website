@@ -1,15 +1,25 @@
-import { Link } from 'react-router-dom';
+import { NavLink } from 'react-router-dom';
 import '../index.css';
 
 function Navbar() {
   return (
     <nav className="navbar">
       <ul className="nav-links">
-        <li className="nav-link"><Link to='/'>Home</Link></li>
-        <li className="nav-link"><Link to='/about'>About</Link></li>
-        <li className="nav-link"><Link to='/projects'>Projects</Link></li>
-        <li className="nav-link"><Link to='/contact'>Contact</Link></li>
-        <li className="nav-link"><Link to='/links'>Links</Link></li>
+        <li className="nav-link">
+          <NavLink to='/' end className={({ isActive }) => isActive ? "active" : undefined}>Home</NavLink>
+        </li>
+        <li className="nav-link">
+          <NavLink to='/about' className={({ isActive }) => isActive ? "active" : undefined}>About</NavLink>
+        </li>
+        <li className="nav-link">
+          <NavLink to='/projects' className={({ isActive }) => isActive ? "active" : undefined}>Projects</NavLink>
+        </li>
+        <li className="nav-link">
+          <NavLink to='/contact' className={({ isActive }) => isActive ? "active" : undefined}>Contact</NavLink>
+        </li>
+        <li className="nav-link">
+          <NavLink to='/links' className={({ isActive }) => isActive ? "active" : undefined}>Links</NavLink>
+        </li>
       </ul>
     </nav>
   );
