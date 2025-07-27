@@ -4,8 +4,17 @@ function About() {
   return (
     <div className='about-container'>
         <h1>About Me</h1>
-        <p>Hi! I've been a top-performing salesperson for most of my life, in spite of how ill-suited that field is to my personality. 
-        I'm looking to make a name for myself in the tech space now, bringing the same commitment and drive to an area that comes much more naturally.</p>
+        <p>Hi, I'm Jonathan MacDuff, a full-stack software developer with a background in sales and a mind built for breaking things down and improving them.
+
+        For the past eight years, I've been the top-performing salesperson at my company; not because I'm naturally outgoing, but because I taught myself how to succeed in a space that didn't come naturally. I built a system and adapted my approach over time. I learned how to turn my strengths - pattern recognition and rapid learning - into real-world results. After a tough first month, I had solved my sales role. I've held the #1 spot ever since, and now consistently generate more than twice the business of any of my peers.
+
+        Now, I'm transitioning into full-stack software development: a field that <em>does</em> come naturally to me. I've always been drawn to complex systems and logical structure. Coding gives me the kind of deep, problem-solving engagement I've always looked for my work.
+
+        My autism is a huge part of how my brain works; it shapes how I see problems and build solutions. It helps me spot patterns and break down systems, approaching challenges from unconventional angles. That's what my domain is about: autism isn't just a diagnosis, it's a way of thinking that brings real value to my technical work.
+
+        In my sales role, I also developed strong communication skills; not just persuasion, but real, practiced interpersonal clarity. I had to learn how to listen, and how to translate complex ideas. This process taught me how to connect with people in ways that I couldn't before. That work now informs how I communicate and collaborate, no matter the context.
+
+        I'm still early in my development career, but I learn fast and think deeply. I'm looking for a team that values honesty, curiosity, and growth; one where I can make meaningful contributions.</p>
     </div>
   );
 };
