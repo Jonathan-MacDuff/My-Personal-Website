@@ -3,7 +3,7 @@
 function Links() {
   return (
     <div className="links-section">
-      <h2>Find Me Online</h2>
+      <h1>Find Me Online</h1>
       <ul className="links-list">
         <li>
           <a href="https://github.com/Jonathan-MacDuff" target="_blank" rel="noopener noreferrer">GitHub</a>
