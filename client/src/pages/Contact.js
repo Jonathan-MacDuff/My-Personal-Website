@@ -39,7 +39,7 @@ function Contact() {
     setStatus('Sending...');
 
     try {
-      const res = await fetch('http://localhost:5000/api/contact', {
+      const res = await fetch('https://my-personal-website-ss2x.onrender.com', {
         method: 'POST',
         headers: { 'Content-Type': 'application/json' },
         body: JSON.stringify(formData),
