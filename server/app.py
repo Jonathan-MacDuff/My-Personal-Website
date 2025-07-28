@@ -5,7 +5,7 @@ from email_utils import send_contact_email
 from flask_cors import CORS
 
 app = Flask(__name__)
-CORS(app)
+CORS(app, origins=["https://www.autistic-insight.com"])
 
 @app.route("/api/contact", methods=["POST"])
 def contact():
