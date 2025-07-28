@@ -20,6 +20,7 @@ def send_contact_email(name, phone, email, message, contact_methods):
         f"Message:\n{message}"
     )
 
-    with smtplib.SMTP_SSL('smtp.office365.com', 465) as smtp:
+    with smtplib.SMTP('smtp.office365.com', 587) as smtp:
+        smtp.starttls()
         smtp.login(EMAIL_ADDRESS, EMAIL_PASSWORD)
         smtp.send_message(msg)
