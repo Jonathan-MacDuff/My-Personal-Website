@@ -1,18 +1,13 @@
-import smtplib
-from email.message import EmailMessage
 import os
+from sendgrid import SendGridAPIClient
+from sendgrid.helpers.mail import Mail
 
-EMAIL_ADDRESS = os.getenv("EMAIL_ADDRESS")
-EMAIL_PASSWORD = os.getenv("EMAIL_PASSWORD")
+SENDGRID_API_KEY = os.getenv("SENDGRID_API_KEY")
+EMAIL_ADDRESS = os.getenv("EMAIL_ADDRESS")  # still your sender/from address
 
 def send_contact_email(name, phone, email, message, contact_methods):
     contact_str = ', '.join([method for method, selected in contact_methods.items() if selected])
-    msg = EmailMessage()
-    msg['Subject'] = f'New Contact Form Message from {name}'
-    msg['From'] = EMAIL_ADDRESS
-    msg['To'] = EMAIL_ADDRESS
-
-    msg.set_content(
+    content = (
         f"Name: {name}\n"
         f"Email: {email}\n"
         f"Phone: {phone}\n"
@@ -20,7 +15,11 @@ def send_contact_email(name, phone, email, message, contact_methods):
         f"Message:\n{message}"
     )
 
-    with smtplib.SMTP('smtp.office365.com', 587) as smtp:
-        smtp.starttls()
-        smtp.login(EMAIL_ADDRESS, EMAIL_PASSWORD)
-        smtp.send_message(msg)
+    msg = Mail(
+        from_email=EMAIL_ADDRESS,
+        to_emails=EMAIL_ADDRESS,
+        subject=f'New Contact Form Message from {name}',
+        plain_text_content=content,
+    )
+    sg = SendGridAPIClient(SENDGRID_API_KEY)
+    sg.send(msg)
