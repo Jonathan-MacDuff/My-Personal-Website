@@ -3,7 +3,7 @@ from sendgrid import SendGridAPIClient
 from sendgrid.helpers.mail import Mail
 
 SENDGRID_API_KEY = os.getenv("SENDGRID_API_KEY")
-EMAIL_ADDRESS = os.getenv("EMAIL_ADDRESS")  # still your sender/from address
+EMAIL_ADDRESS = os.getenv("EMAIL_ADDRESS")
 
 def send_contact_email(name, phone, email, message, contact_methods):
     contact_str = ', '.join([method for method, selected in contact_methods.items() if selected])
