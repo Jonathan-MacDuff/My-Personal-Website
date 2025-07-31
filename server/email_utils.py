@@ -38,7 +38,7 @@ def send_contact_email(name, phone, email, message, contact_methods):
     try:
         sg = SendGridAPIClient(SENDGRID_API_KEY)
         msg = Mail(
-            from_email=EMAIL_ADDRESS,
+            from_email='noreply@autistic-insight.com',
             to_emails=EMAIL_ADDRESS,
             subject=f'New Contact Form Message from {name}',
             plain_text_content=plain_text,
