@@ -2,9 +2,9 @@ import os
 import smtplib
 from email.message import EmailMessage
 
-EMAIL_ADDRESS = os.getenv("EMAIL_ADDRESS")  # e.g., noreply@autistic-insight.com
-EMAIL_PASSWORD = os.getenv("EMAIL_PASSWORD")  # SMTP2GO SMTP password
-TO_EMAIL = "jonathan.macduff@outlook.com"  # where you want to receive messages
+EMAIL_ADDRESS = os.getenv("EMAIL_ADDRESS")
+EMAIL_PASSWORD = os.getenv("EMAIL_PASSWORD")
+TO_EMAIL = "jonathan.macduff@outlook.com"
 
 def send_contact_email(name, phone, email, message, contact_methods):
     contact_str = ', '.join([m for m, selected in contact_methods.items() if selected])
@@ -24,3 +24,4 @@ def send_contact_email(name, phone, email, message, contact_methods):
         smtp.starttls()
         smtp.login(EMAIL_ADDRESS, EMAIL_PASSWORD)
         smtp.send_message(msg)
+        
