@@ -2,8 +2,11 @@ body {
   margin: 0;
   padding: 0;
   font-family: 'Segoe UI', 'Helvetica Neue', sans-serif;
-  background: url('/assets/Pink Wave.jpeg') no-repeat center center fixed;
-  background-size: cover;
+  background-color: #000;
+  background-image: url('/public/assets/Pink Wave.jpeg');
+  background-repeat: no-repeat;
+  background-position: center center;
+  background-size: contain;
   color: #ffffff;
   line-height: 1.6;
 }
@@ -51,12 +54,12 @@ a:hover {
 }
 
 .nav-link a:hover {
-  background-color: #0066cc;
+  background-color: rgba(255, 105, 180, 0.8);
   color: white;
 }
 
 .nav-link .active {
-  background-color: #0066cc;
+  background-color: rgba(255, 105, 180, 0.8);
   color: white;
 }
 
@@ -237,7 +240,7 @@ a:hover {
 }
 
 .links-list li a:hover {
-  background-color: #0066cc;
+  background-color: rgba(255, 105, 180, 1);
   color: #fff;
 }
 
@@ -265,18 +268,18 @@ a:hover {
   margin-right: 1rem;
   margin-bottom: 0.5rem;
   font-weight: 500;
-  color: #0066cc;
+  color: rgba(255, 105, 180, 0.8);
   transition: color 0.2s ease;
 }
 
 .projects-container a:hover {
-  color: #004c99;
+  color: rgba(255, 105, 180, 1);
 }
 
 .projects-container p {
   font-size: 1.05rem;
   margin-top: 0.5rem;
-  color: #333;
+  color: #fff;
 }
 
 .container,
