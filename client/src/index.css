@@ -98,6 +98,7 @@ a:hover {
   color: #fff;
   transition: background-color 0.2s ease;
   font-size: 1rem;
+  border-radius: 10px;
 }
 
 .home-links a:hover {
@@ -237,6 +238,7 @@ a:hover {
   border: none;
   color: #fff;
   transition: background-color 0.2s ease;
+  border-radius: 10px;
 }
 
 .links-list li a:hover {
