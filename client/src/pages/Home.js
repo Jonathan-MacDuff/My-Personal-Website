@@ -5,7 +5,7 @@ function Home() {
     <div className="home-container">
       <h1>Welcome</h1>
       <p>
-        Full-stack software developer with a unique angle on problem-solving.
+        Autistic full-stack developer with a unique angle on problem-solving.
       </p>
       <div className="home-links">
         <a href="/about">About Me</a>
