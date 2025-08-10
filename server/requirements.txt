@@ -3,3 +3,8 @@ python-dotenv==1.0.0
 Flask-Cors==4.0.0
 gunicorn
 sendgrid
+flask_migrate
+flask_restful
+flask_sqlalchemy
+sqlalchemy
+flask_socketio
