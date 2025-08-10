@@ -1,10 +1,10 @@
 from flask import Blueprint, jsonify
 import random
 import json
-import os
 from flask_cors import CORS
+import os
 
-catmemes_bp = Blueprint('catmemes', __name__)
+catmemes_bp = Blueprint("catmemes", __name__)
 
 CORS(catmemes_bp, origins=["https://autistic-insight.com", "https://www.autistic-insight.com"])
 
@@ -35,5 +35,3 @@ def get_badass():
     quotes = load_quotes('data/bbquotes.json')
     return jsonify({'quote': random.choice(quotes)})
 
-# if __name__ == '__main__':
-#     app.run(debug=True)
