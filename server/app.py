@@ -3,12 +3,15 @@ load_dotenv()
 from flask import Flask, request, jsonify
 from email_utils import send_contact_email
 from flask_cors import CORS
+from catmemes.app import catmemes_bp
 
 app = Flask(__name__)
 CORS(app, resources={r"/api/*": {"origins": [
     "https://autistic-insight.com",
     "https://www.autistic-insight.com"
 ]}})
+
+app.register_blueprint(catmemes_bp, url_prefix="/catmemes")
 
 @app.route('/')
 def index():
