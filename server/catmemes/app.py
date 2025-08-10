@@ -2,8 +2,11 @@ from flask import Blueprint, jsonify
 import random
 import json
 import os
+from flask_cors import CORS
 
 catmemes_bp = Blueprint('catmemes', __name__)
+
+CORS(catmemes_bp, origins=["https://autistic-insight.com", "https://www.autistic-insight.com"])
 
 BASE_DIR = os.path.dirname(os.path.abspath(__file__))
 
