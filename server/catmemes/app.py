@@ -4,7 +4,7 @@ import json
 from flask_cors import CORS
 
 app = Flask(__name__)
-CORS(app)
+CORS(app, resources={r"/api/*": {"origins": "https://autistic-insight.com"}})
 
 def load_quotes(file_path):
     with open(file_path, 'r') as f:
