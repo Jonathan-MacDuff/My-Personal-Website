@@ -1,11 +1,15 @@
 from flask import Blueprint, jsonify
 import random
 import json
+import os
 
 catmemes_bp = Blueprint('catmemes', __name__)
 
+BASE_DIR = os.path.dirname(os.path.abspath(__file__))
+
 def load_quotes(file_path):
-    with open(file_path, 'r') as f:
+    abs_path = os.path.join(BASE_DIR, file_path)
+    with open(abs_path, 'r') as f:
         return json.load(f)
     
 @catmemes_bp.route('/api/cat')
