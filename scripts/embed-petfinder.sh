@@ -16,41 +16,25 @@ cp -r build/* ../../client/public/Pet-Finder/
 
 echo "Pet Finder React app embedded successfully!"
 
-SRC_DIR="../server"
-DEST_DIR="../../server/petfinder"
+echo "Syncing Pet Finder backend..."
 
-echo "Updating PetFinder backend in $DEST_DIR..."
+SRC_BACKEND_DIR="../server"
+DEST_BACKEND_DIR="../../server/petfinder"
 
-# Ensure destination folder exists
-mkdir -p "$DEST_DIR"
+# rsync excluding migrations folder and database files (app.db, instance folder, migrations)
+rsync -av --exclude='__pycache__' --exclude='*.pyc' --exclude='*.pyo' --exclude='migrations' --exclude='instance' --exclude='app.db' "$SRC_BACKEND_DIR/" "$DEST_BACKEND_DIR/"
 
-# Copy and overwrite critical files
-for file in app.py config.py models.py seed.py; do
-    echo "Copying $file..."
-    cp -f "$SRC_DIR/$file" "$DEST_DIR/$file"
-done
+# Convert Flask app to Blueprint in routes.py (adjust paths and names accordingly)
+sed -i 's/#1/from flask import Blueprint/' "$DEST_BACKEND_DIR/routes.py"
+sed -i 's/#2/petfinder_bp = Blueprint("petfinder", __name__)/' "$DEST_BACKEND_DIR/routes.py"
 
-# Copy migrations (overwrite if needed)
-# if [ -d "$SRC_DIR/migrations" ]; then
-#     echo "Copying migrations folder..."
-#     rm -rf "$DEST_DIR/migrations"
-#     cp -r "$SRC_DIR/migrations" "$DEST_DIR/migrations"
-# fi
+# Remove any CORS(app) calls and add CORS for the blueprint
+sed -i '/petfinder_bp = Blueprint("petfinder", __name__)/a\
+\
+from flask_cors import CORS\n\
+CORS(petfinder_bp, origins=["https://autistic-insight.com", "https://www.autistic-insight.com"])\
+' "$DEST_BACKEND_DIR/routes.py"
 
-# Set working directory to petfinder
-cd "$DEST_DIR"
+echo "Backend synced and converted to blueprint in $DEST_BACKEND_DIR"
 
-# Set Flask app entry point
-export FLASK_APP=app.py
-
-# Initialize DB only if migrations folder wasn't already used
-# if [ ! -d "migrations/versions" ]; then
-#     echo "🚧 Initializing database..."
-#     flask db init
-# fi
-
-# echo "Running migrations..."
-# flask db migrate -m "Auto migration update"
-# flask db upgrade
-
-echo "PetFinder server files synced and database migrated successfully."
+echo "Pet Finder fully embedded!"

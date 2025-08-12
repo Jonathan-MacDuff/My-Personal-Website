@@ -4,6 +4,7 @@ from flask import Flask, request, jsonify
 from email_utils import send_contact_email
 from flask_cors import CORS
 from catmemes.app import catmemes_bp
+from petfinder.routes import petfinder_bp
 
 app = Flask(__name__)
 CORS(app, resources={r"/api/*": {"origins": [
@@ -12,6 +13,7 @@ CORS(app, resources={r"/api/*": {"origins": [
 ]}})
 
 app.register_blueprint(catmemes_bp, url_prefix="/catmemes")
+app.register_blueprint(petfinder_bp, url_prefix="/petfinder")
 
 @app.route('/')
 def index():

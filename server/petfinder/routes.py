@@ -1,13 +1,19 @@
 #!/usr/bin/env python3
 
-from flask import request, make_response, jsonify
+from flask import Blueprint
 from flask_restful import Resource
+from flask import request, make_response, jsonify, session
 from sqlalchemy import or_
+from datetime import datetime
 
-from config import app, db, api, session, socketio, datetime
-from models import User, Pet, Report, Comment, Message
+from .extensions import db
+from .models import User, Pet, Report, Comment, Message
 
+petfinder_bp = Blueprint("petfinder", __name__)
 
+from flask_cors import CORS
+
+CORS(petfinder_bp, origins=["https://autistic-insight.com", "https://www.autistic-insight.com"])
 
 class Signup(Resource):
     def post(self):
@@ -203,22 +209,13 @@ class Messages(Resource):
         db.session.commit()
         return make_response(newMessage.serialize(), 200)
 
-
-@app.route('/')
-def index():
-    return '<h1>Project Server</h1>'
-
-api.add_resource(Pets, '/pets', endpoint='pets')
-api.add_resource(Signup, '/signup', endpoint='signup')
-api.add_resource(Signin, '/signin', endpoint='signin')
-api.add_resource(Signout, '/signout', endpoint='signout')
-api.add_resource(SinglePet, '/pets/<int:id>', endpoint='pets/<int:id>')
-api.add_resource(Sightings, '/pets/<int:id>/sightings', endpoint='pets/<int:id>/sightings')
-api.add_resource(Comments, '/pets/<int:id>/comments', endpoint='/pets/<int:id>/comments')
-api.add_resource(Messages, '/messages', endpoint='messages')
-api.add_resource(CheckSession, '/checksession')
-
-
-if __name__ == '__main__':
-    socketio.run(app, debug=True, port=5555)
-
+def register_routes(api):
+    api.add_resource(Pets, '/pets', endpoint='pets')
+    api.add_resource(Signup, '/signup', endpoint='signup')
+    api.add_resource(Signin, '/signin', endpoint='signin')
+    api.add_resource(Signout, '/signout', endpoint='signout')
+    api.add_resource(SinglePet, '/pets/<int:id>', endpoint='pet')
+    api.add_resource(Sightings, '/pets/<int:id>/sightings', endpoint='sightings')
+    api.add_resource(Comments, '/pets/<int:id>/comments', endpoint='comments')
+    api.add_resource(Messages, '/messages', endpoint='messages')
+    api.add_resource(CheckSession, '/checksession')
