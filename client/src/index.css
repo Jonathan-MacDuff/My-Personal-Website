@@ -1,7 +1,9 @@
+@import url('https://fonts.googleapis.com/css2?family=Fira+Sans:wght@400;500;600;700&display=swap');
+
 body {
   margin: 0;
   padding: 0;
-  font-family: 'Segoe UI', 'Helvetica Neue', sans-serif;
+  font-family: 'Fira Sans', sans-serif;
   background-color: #000;
   background-image: url('/public/assets/Pink Wave.jpeg');
   background-repeat: no-repeat;
@@ -65,7 +67,6 @@ a:hover {
 
 /* Home Page */
 .home-container {
-  max-width: 800px;
   margin: 0 auto;
   padding: 4rem 1rem;
   text-align: center;
@@ -108,7 +109,6 @@ a:hover {
 
 /* About Page */
 .about-container {
-  max-width: 800px;
   margin: 0 auto;
   padding: 4rem 1rem;
   color: #222;
@@ -135,7 +135,6 @@ a:hover {
 
 /* Contact Page */
 .form-container {
-  max-width: 700px;
   margin: 0 auto;
   padding: 4rem 1rem;
   color: #fff;
@@ -209,7 +208,6 @@ a:hover {
 
 /* Links Page */
 .links-section {
-  max-width: 700px;
   margin: 0 auto;
   padding: 4rem 1rem;
   text-align: center;
@@ -248,7 +246,6 @@ a:hover {
 
 /* Projects Page */
 .projects-container {
-  max-width: 800px;
   margin: 0 auto;
   padding: 4rem 1rem;
 }
@@ -295,8 +292,12 @@ a:hover {
   backdrop-filter: blur(10px);
   border-radius: 10px;
   box-shadow: 0 4px 30px rgba(0, 0, 0, 0.1);
+  width: 90%;
 }
 
 h1, h2, h3 {
+  font-family: 'Fira Sans', sans-serif;
+  font-weight: 700;
   color: #fff;
+  letter-spacing: 0.5px;
 }
