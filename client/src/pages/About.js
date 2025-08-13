@@ -4,10 +4,13 @@ function About() {
   return (
     <div className='about-container'>
         <h1>About Me</h1>
-        <p>Hi, I'm Jonathan MacDuff, a full-stack software developer with a background 
-        in sales and a mind built for breaking things down and improving them.</p>
+        <p>Hi, I'm Jonathan MacDuff, an autistic full-stack software 
+        developer with a background 
+        in sales and a unique mind built for breaking things down and improving them.</p>
 
-        <p>For the past eight years, I've been the top-performing salesperson at my 
+        <p>Before I decided to dive head-first into the world of software development, 
+        I was (and am) a decicated, successful sales representative. 
+        For the past eight years, I've been the top-performing salesperson at my 
         company; not because I'm naturally outgoing, but because I taught myself how to 
         succeed in a space that didn't come naturally. I built a system and adapted my 
         approach over time. I learned how to turn my strengths - pattern recognition 
@@ -21,7 +24,7 @@ function About() {
         engagement I've always looked for in my work.</p>
 
         <p>My autism is a huge part of how my brain works; it shapes how I see problems 
-        and build solutions. It helps me spot patterns and break down systems, 
+        and build solutions. I don't see it as a disability; to the contrary, my autism helps me spot patterns and break down systems, 
         approaching challenges from unconventional angles. That's what my domain name 
         is about: autism isn't just a diagnosis, it's a way of thinking that brings 
         real value to my technical work.</p>
