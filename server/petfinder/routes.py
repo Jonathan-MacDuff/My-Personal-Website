@@ -1,19 +1,18 @@
-#!/usr/bin/env python3
-
 from flask import Blueprint
+petfinder_bp = Blueprint("petfinder", __name__)
+
+# Keep your CORS setup for the blueprint
+from flask_cors import CORS
+CORS(petfinder_bp, origins=["https://autistic-insight.com", "https://www.autistic-insight.com"])
+
+
 from flask_restful import Resource
 from flask import request, make_response, jsonify, session
 from sqlalchemy import or_
 from datetime import datetime
 
-from .extensions import db
+from .extensions import db, api
 from .models import User, Pet, Report, Comment, Message
-
-petfinder_bp = Blueprint("petfinder", __name__)
-
-from flask_cors import CORS
-
-CORS(petfinder_bp, origins=["https://autistic-insight.com", "https://www.autistic-insight.com"])
 
 class Signup(Resource):
     def post(self):
@@ -209,7 +208,7 @@ class Messages(Resource):
         db.session.commit()
         return make_response(newMessage.serialize(), 200)
 
-def register_routes(api):
+def register_routes():
     api.add_resource(Pets, '/pets', endpoint='pets')
     api.add_resource(Signup, '/signup', endpoint='signup')
     api.add_resource(Signin, '/signin', endpoint='signin')
@@ -219,3 +218,7 @@ def register_routes(api):
     api.add_resource(Comments, '/pets/<int:id>/comments', endpoint='comments')
     api.add_resource(Messages, '/messages', endpoint='messages')
     api.add_resource(CheckSession, '/checksession')
+
+# Initialize the API with the blueprint
+register_routes()
+api.init_app(petfinder_bp)

@@ -10,13 +10,17 @@ from datetime import datetime, timedelta
 from faker import Faker
 
 # Local imports
-from . import create_app
+import sys
+import os
+# Add parent directory to path for main app import
+sys.path.append(os.path.dirname(os.path.dirname(os.path.abspath(__file__))))
+from app import app
 from .extensions import db
 from .models import User, Pet, Report, Comment, Message
 
 if __name__ == '__main__':
     fake = Faker()
-    app = create_app()
+    # Use the imported main app directly
     with app.app_context():
         print("Generating seed data...")
         

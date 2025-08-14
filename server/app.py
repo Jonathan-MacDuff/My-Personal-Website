@@ -5,15 +5,25 @@ from email_utils import send_contact_email
 from flask_cors import CORS
 from catmemes.app import catmemes_bp
 from petfinder.routes import petfinder_bp
+from petfinder.extensions import db, migrate, socketio
+from petfinder.config import Config
 
 app = Flask(__name__)
+
+app.config.from_object(Config)
+
+app.register_blueprint(catmemes_bp, url_prefix="/catmemes")
+app.register_blueprint(petfinder_bp, url_prefix="/petfinder")
+
+db.init_app(app)
+migrate.init_app(app, db)
+socketio.init_app(app, cors_allowed_origins="*", transports=["websocket"])
+import petfinder.socketio_handlers
+
 CORS(app, resources={r"/api/*": {"origins": [
     "https://autistic-insight.com",
     "https://www.autistic-insight.com"
 ]}})
-
-app.register_blueprint(catmemes_bp, url_prefix="/catmemes")
-app.register_blueprint(petfinder_bp, url_prefix="/petfinder")
 
 @app.route('/')
 def index():
@@ -39,4 +49,4 @@ def contact():
         return jsonify({"error": "Email failed to send"}), 500
 
 if __name__ == "__main__":
-    app.run(debug=True)
+    socketio.run(app, debug=True)

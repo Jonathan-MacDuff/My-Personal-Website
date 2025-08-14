@@ -1,0 +1,22 @@
+INTEGRATION NOTES FOR PETFINDER BLUEPRINT:
+
+1. In your main server/app.py, add these imports:
+   from petfinder.extensions import db, migrate, socketio
+   from petfinder.routes import petfinder_bp
+   from petfinder.config import Config
+   import petfinder.socketio_handlers  # This registers the SocketIO handlers
+
+2. Configure your main app:
+   app.config.from_object(Config)  # or merge config as needed
+   
+3. Initialize extensions:
+   db.init_app(app)
+   migrate.init_app(app, db)
+   socketio.init_app(app, cors_allowed_origins="*", transports=["websocket"])
+
+4. Register the blueprint:
+   app.register_blueprint(petfinder_bp, url_prefix="/petfinder")
+
+5. Run with SocketIO:
+   if __name__ == "__main__":
+       socketio.run(app, debug=True)
