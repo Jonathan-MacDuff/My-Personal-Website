@@ -6,10 +6,12 @@ cd ../Pet-Finder/client || exit
 
 echo "Updating BACKEND_URL for production..."
 sed -i.bak 's|const BACKEND_URL = ""|const BACKEND_URL = "https://my-personal-website-ss2x.onrender.com/petfinder"|' src/config.js
+sed -i.bak 's|const socket = io("http://localhost:5555"|const socket = io("https://my-personal-website-ss2x.onrender.com"|' src/components/Conversation.js
 
 PUBLIC_URL=/Pet-Finder npm run build
 
 mv src/config.js.bak src/config.js
+mv src/components/Conversation.js.bak src/components/Conversation.js
 
 rm -rf ../../client/public/Pet-Finder/*
 cp -r build/* ../../client/public/Pet-Finder/
