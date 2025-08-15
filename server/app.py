@@ -50,6 +50,3 @@ def contact():
 
 if __name__ == "__main__":
     socketio.run(app, debug=True)
-else:
-    # For gunicorn
-    application = socketio
