@@ -1,6 +1,6 @@
 from dotenv import load_dotenv
 load_dotenv()
-from flask import Flask, request, jsonify
+from flask import Flask, request, jsonify, send_from_directory
 from email_utils import send_contact_email
 from flask_cors import CORS
 from catmemes.app import catmemes_bp
@@ -18,7 +18,7 @@ app.register_blueprint(petfinder_bp, url_prefix="/petfinder")
 db.init_app(app)
 migrate.init_app(app, db)
 
-socketio.init_app(app, cors_allowed_origins="*", transports=["websocket", "polling"])
+socketio.init_app(app, cors_allowed_origins="*", transports=["polling"])
 import petfinder.socketio_handlers
 
 CORS(app, resources={r"/api/*": {"origins": [
@@ -48,6 +48,12 @@ def contact():
     except Exception as e:
         print("Email error:", e)
         return jsonify({"error": "Email failed to send"}), 500
+
+@app.route('/Pet-Finder')
+@app.route('/Pet-Finder/')
+@app.route('/Pet-Finder/<path:path>')
+def serve_pet_finder(path=''):
+    return send_from_directory('../client/public/Pet-Finder', 'index.html')
 
 if __name__ == "__main__":
     socketio.run(app, debug=True)
