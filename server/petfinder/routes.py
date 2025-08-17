@@ -97,7 +97,13 @@ class SinglePet(Resource):
         pet = Pet.query.filter(Pet.id == id).first()
         if not pet:
             return {'message': 'Pet not found'}, 404
-        report = Report.query.filter(Report.pet_id == id).first()
+        # Get the main report (lost or found, not sighting)
+        report = Report.query.filter(
+            Report.pet_id == id,
+            Report.report_type.in_(['lost', 'found'])
+        ).first()
+        if not report:
+            return {'message': 'Pet report not found'}, 404
         return make_response({'pet': pet.serialize(), 'report': report.serialize()}, 200)
     
     def patch(self, id):
