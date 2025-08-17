@@ -35,19 +35,30 @@ class User(db.Model, SerializerMixin):
         return bcrypt.checkpw(plain_text_password.encode('utf-8'), self._password_hash.encode('utf-8'))
     
     def serialize(self):
-        user_data = self.to_dict(only=('id', 'username'))
-        # user_data['reports'] = [report.to_dict(only=('id', 'report_type')) for report in self.reports]            
-        # user_data['comments'] = [comment.to_dict(only=('id', 'content')) for comment in self.comments]
-        user_data['messages_sent'] = [message.to_dict(only=('id', 'content', 'timestamp')) for message in self.messages_sent]
-        user_data['messages_received'] = [message.to_dict(only=('id', 'content', 'timestamp')) for message in self.messages_received]
-        user_data['pets'] = [{
-            **pet.to_dict(only=('id', 'name', 'breed', 'image_url', 'description')),
-            'reports': [report.to_dict(only=('id', 'report_type')) for report in pet.reports],
-            'comments': [{
-                **comment.to_dict(only=('id', 'content')),
-                'user': comment.user.to_dict(only=('id', 'username'))
-            } for comment in pet.comments]
-        } for pet in self.pets]
+        user_data = {
+            'id': self.id,
+            'username': self.username
+        }
+        
+        # Simplified pets serialization to avoid circular references and crashes
+        user_data['pets'] = []
+        for pet in self.pets:
+            pet_data = {
+                'id': pet.id,
+                'name': pet.name,
+                'breed': pet.breed,
+                'image_url': pet.image_url,
+                'description': pet.description,
+                'reports': []
+            }
+            # Only add reports for this pet that belong to this user
+            for report in pet.reports:
+                if report.user_id == self.id:
+                    pet_data['reports'].append({
+                        'id': report.id,
+                        'report_type': report.report_type
+                    })
+            user_data['pets'].append(pet_data)
 
         return user_data
 

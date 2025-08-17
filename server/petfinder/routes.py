@@ -74,13 +74,17 @@ class Pets(Resource):
         description = json.get('description')
         if (lost == True and found == True) or (lost == False and found == False):
             return {'message': 'Please select exactly one lost or found checkbox'}, 422
-        new_pet = Pet(name=name,breed=breed,image_url=image_url,description=description)
-        db.session.add(new_pet)
-        db.session.commit()
-        new_report = Report(user_id=session.get('user_id'),pet_id=new_pet.id,report_type=('lost' if lost else 'found'))
-        db.session.add(new_report)
-        db.session.commit()
-        return make_response(new_pet.serialize(), 200)
+        try:
+            new_pet = Pet(name=name,breed=breed,image_url=image_url,description=description)
+            db.session.add(new_pet)
+            db.session.flush()  # This assigns the ID without committing
+            new_report = Report(user_id=session.get('user_id'),pet_id=new_pet.id,report_type=('lost' if lost else 'found'))
+            db.session.add(new_report)
+            db.session.commit()  # Commit both together
+            return make_response(new_pet.serialize(), 200)
+        except Exception as e:
+            db.session.rollback()  # Undo everything if anything fails
+            return {'message': 'Failed to create pet'}, 500
     
 class SinglePet(Resource):
 
