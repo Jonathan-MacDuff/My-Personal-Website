@@ -5,7 +5,7 @@ from email_utils import send_contact_email
 from flask_cors import CORS
 from catmemes.app import catmemes_bp
 from petfinder.routes import petfinder_bp
-from petfinder.extensions import db, migrate, socketio, sess
+from petfinder.extensions import db, migrate, socketio
 from petfinder.config import Config
 
 app = Flask(__name__)
@@ -18,9 +18,6 @@ app.register_blueprint(petfinder_bp, url_prefix="/petfinder")
 db.init_app(app)
 migrate.init_app(app, db)
 
-# Configure session to use the same database
-app.config['SESSION_SQLALCHEMY'] = db
-sess.init_app(app)
 socketio.init_app(app, cors_allowed_origins="*", transports=["websocket", "polling"])
 import petfinder.socketio_handlers
 

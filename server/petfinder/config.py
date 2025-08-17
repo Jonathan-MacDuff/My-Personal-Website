@@ -7,10 +7,7 @@ class Config:
     SECRET_KEY = os.getenv('SECRET_KEY', 'dev-secret-key-change-me')
     JSON_SORT_KEYS = False
     
-    # Session configuration for gevent compatibility
-    # Use database-backed sessions for Render compatibility
-    SESSION_TYPE = 'sqlalchemy'
-    SESSION_SQLALCHEMY_TABLE = 'sessions'
+    # Session configuration - use default Flask sessions
     SESSION_COOKIE_SECURE = False  # Set to True for HTTPS in production
     SESSION_COOKIE_HTTPONLY = True
     SESSION_COOKIE_SAMESITE = 'Lax'
