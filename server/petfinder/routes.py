@@ -63,7 +63,7 @@ class Pets(Resource):
     
     
     def post(self):
-        if not session['user_id']:
+        if not session.get('user_id'):
             return {'message': 'Not Authorized'}, 401
         json = request.get_json()
         name = json.get('name')
@@ -77,7 +77,7 @@ class Pets(Resource):
         new_pet = Pet(name=name,breed=breed,image_url=image_url,description=description)
         db.session.add(new_pet)
         db.session.commit()
-        new_report = Report(user_id=session['user_id'],pet_id=new_pet.id,report_type=('lost' if lost else 'found'))
+        new_report = Report(user_id=session.get('user_id'),pet_id=new_pet.id,report_type=('lost' if lost else 'found'))
         db.session.add(new_report)
         db.session.commit()
         return make_response(new_pet.serialize(), 200)
@@ -93,7 +93,7 @@ class SinglePet(Resource):
     
     def patch(self, id):
         json = request.get_json()
-        user = User.query.filter(User.id == session['user_id']).first()
+        user = User.query.filter(User.id == session.get('user_id')).first()
         pets = [pet for pet in user.pets if pet.id == id]
         reports = [report for report in user.reports if report.pet_id == id]
         if len(pets) == 0:
@@ -116,7 +116,7 @@ class SinglePet(Resource):
         return make_response(pet.serialize(), 200)
     
     def delete(self, id):
-        user = User.query.filter(User.id == session['user_id']).first()
+        user = User.query.filter(User.id == session.get('user_id')).first()
         pets = [pet for pet in user.pets if pet.id == id]
         if len(pets) == 0:
             return {'message': 'Not Authorized'}, 401
@@ -127,13 +127,13 @@ class SinglePet(Resource):
 class Sightings(Resource):
 
     def get(self, id):
-        if not session['user_id']:
+        if not session.get('user_id'):
             return {'message': 'Not Authorized'}, 401
         sightings = Report.query.filter(Report.pet_id == id).filter(Report.report_type == 'sighting').all()
         return make_response([sighting.serialize() for sighting in sightings], 200)
 
     def post(self, id):
-        if not session['user_id']:
+        if not session.get('user_id'):
             return {'message': 'Not Authorized'}, 401
 
         if session.get('user_id'):
@@ -152,11 +152,11 @@ class Comments(Resource):
     #     return make_response([comment.serialize() for comment in comments], 200)
     
     def post(self, id):
-        if not session['user_id']:
+        if not session.get('user_id'):
             return {'message': 'Not Authorized'}, 401
         json = request.get_json()
         content = json.get('content')
-        user_id = session['user_id']
+        user_id = session.get('user_id')
         comment = Comment(content=content, user_id=user_id, pet_id=id)
         db.session.add(comment)
         db.session.commit()
@@ -187,15 +187,15 @@ class Comments(Resource):
 class Messages(Resource):
 
     def get(self):
-        if not session['user_id']:
+        if not session.get('user_id'):
             return {'message': 'Not Authorized'}, 401
-        user_id = session['user_id']
+        user_id = session.get('user_id')
         messages = Message.query.filter(
             or_(Message.recipient_id == user_id, Message.sender_id == user_id)).all()
         return jsonify([message.serialize() for message in messages])
     
     def post(self):
-        if not session['user_id']:
+        if not session.get('user_id'):
             return {'message': 'Not Authorized'}, 401
         json = request.get_json()
         content = json.get('content')
