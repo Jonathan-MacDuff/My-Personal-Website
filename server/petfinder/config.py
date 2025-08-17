@@ -8,6 +8,7 @@ class Config:
     JSON_SORT_KEYS = False
     
     # Session configuration for gevent compatibility
+    SESSION_TYPE = 'filesystem'  # Use file-based sessions
     SESSION_COOKIE_SECURE = False  # Set to True for HTTPS in production
     SESSION_COOKIE_HTTPONLY = True
     SESSION_COOKIE_SAMESITE = 'Lax'
