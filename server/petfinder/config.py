@@ -7,8 +7,8 @@ class Config:
     SECRET_KEY = os.getenv('SECRET_KEY', 'dev-secret-key-change-me')
     JSON_SORT_KEYS = False
     
-    # Session configuration - use default Flask sessions
-    SESSION_COOKIE_SECURE = False  # Set to True for HTTPS in production
+    # Session configuration for cross-origin requests
+    SESSION_COOKIE_SECURE = True  # Required for SameSite=None
     SESSION_COOKIE_HTTPONLY = True
-    SESSION_COOKIE_SAMESITE = 'Lax'
+    SESSION_COOKIE_SAMESITE = 'None'  # Allow cross-site cookies
     SESSION_PERMANENT = False
