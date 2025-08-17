@@ -7,6 +7,14 @@ class Config:
     SECRET_KEY = os.getenv('SECRET_KEY', 'dev-secret-key-change-me')
     JSON_SORT_KEYS = False
     
+    # Database connection pooling for better performance
+    SQLALCHEMY_ENGINE_OPTIONS = {
+        'pool_size': 10,
+        'pool_recycle': 300,
+        'pool_pre_ping': True,
+        'max_overflow': 20
+    }
+    
     # Session configuration for cross-origin requests
     SESSION_COOKIE_SECURE = True  # Required for SameSite=None
     SESSION_COOKIE_HTTPONLY = True

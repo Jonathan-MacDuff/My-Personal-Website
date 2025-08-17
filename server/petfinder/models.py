@@ -13,7 +13,7 @@ class User(db.Model, SerializerMixin):
     serialize_rules = ('-reports.user', '-comments.user', '-messages_sent', '-messages_received', '-pets.reports',)
 
     id = db.Column(db.Integer, primary_key=True)
-    username = db.Column(db.String, unique=True, nullable=False)
+    username = db.Column(db.String, unique=True, nullable=False, index=True)
     _password_hash = db.Column(db.String, nullable=False)
 
     pets = db.relationship('Pet', secondary='reports', viewonly=True)
@@ -104,10 +104,10 @@ class Report(db.Model, SerializerMixin):
     serialize_rules = ('-pet.reports', '-user.reports',)
 
     id = db.Column(db.Integer, primary_key=True)
-    report_type = db.Column(db.String, nullable=False)
+    report_type = db.Column(db.String, nullable=False, index=True)
 
-    user_id = db.Column(db.Integer, db.ForeignKey('users.id'))
-    pet_id = db.Column(db.Integer, db.ForeignKey('pets.id'))
+    user_id = db.Column(db.Integer, db.ForeignKey('users.id'), nullable=False, index=True)
+    pet_id = db.Column(db.Integer, db.ForeignKey('pets.id'), nullable=False, index=True)
 
     user = db.relationship('User', back_populates='reports')
     pet = db.relationship('Pet', back_populates='reports')
@@ -131,8 +131,8 @@ class Comment(db.Model, SerializerMixin):
     id = db.Column(db.Integer, primary_key=True)
     content = db.Column(db.String, nullable=False)
 
-    user_id = db.Column(db.Integer, db.ForeignKey('users.id'))
-    pet_id = db.Column(db.Integer, db.ForeignKey('pets.id'))
+    user_id = db.Column(db.Integer, db.ForeignKey('users.id'), nullable=False, index=True)
+    pet_id = db.Column(db.Integer, db.ForeignKey('pets.id'), nullable=False, index=True)
 
     user = db.relationship('User', back_populates='comments')
     pet = db.relationship('Pet', back_populates='comments')
@@ -154,10 +154,10 @@ class Message(db.Model, SerializerMixin):
     serialize_rules = ('-sender.messages_sent', '-recipient.messages_received',)
 
     id = db.Column(db.Integer, primary_key=True)
-    sender_id = db.Column(db.Integer, db.ForeignKey('users.id'), nullable=False)
-    recipient_id = db.Column(db.Integer, db.ForeignKey('users.id'), nullable=False)
+    sender_id = db.Column(db.Integer, db.ForeignKey('users.id'), nullable=False, index=True)
+    recipient_id = db.Column(db.Integer, db.ForeignKey('users.id'), nullable=False, index=True)
     content = db.Column(db.Text, nullable=False)
-    timestamp = db.Column(db.DateTime, nullable=False, server_default=db.func.now())
+    timestamp = db.Column(db.DateTime, nullable=False, server_default=db.func.now(), index=True)
 
     sender = db.relationship('User', foreign_keys=[sender_id], back_populates='messages_sent')
     recipient = db.relationship('User', foreign_keys=[recipient_id], back_populates='messages_received')

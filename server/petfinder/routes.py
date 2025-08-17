@@ -9,6 +9,7 @@ CORS(petfinder_bp, origins=["https://autistic-insight.com", "https://www.autisti
 from flask_restful import Resource
 from flask import request, make_response, jsonify, session
 from sqlalchemy import or_
+from sqlalchemy.orm import joinedload
 from datetime import datetime
 
 from .extensions import db, api
@@ -58,7 +59,11 @@ class CheckSession(Resource):
 class Pets(Resource):
 
     def get(self):
-        pets = Pet.query.all()
+        # Eager load relationships to avoid N+1 queries
+        pets = Pet.query.options(
+            joinedload(Pet.reports).joinedload(Report.user),
+            joinedload(Pet.comments).joinedload(Comment.user)
+        ).all()
         return make_response([pet.serialize() for pet in pets], 200)
     
     
@@ -194,8 +199,13 @@ class Messages(Resource):
         if not session.get('user_id'):
             return {'message': 'Not Authorized'}, 401
         user_id = session.get('user_id')
-        messages = Message.query.filter(
-            or_(Message.recipient_id == user_id, Message.sender_id == user_id)).all()
+        # Eager load relationships and order by timestamp for better performance
+        messages = Message.query.options(
+            joinedload(Message.sender),
+            joinedload(Message.recipient)
+        ).filter(
+            or_(Message.recipient_id == user_id, Message.sender_id == user_id)
+        ).order_by(Message.timestamp.desc()).all()
         return jsonify([message.serialize() for message in messages])
     
     def post(self):
