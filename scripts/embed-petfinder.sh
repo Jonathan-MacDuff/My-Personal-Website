@@ -44,7 +44,7 @@ petfinder_bp = Blueprint("petfinder", __name__)\
 \
 # Keep your CORS setup for the blueprint\
 from flask_cors import CORS\
-CORS(petfinder_bp, origins=["https://autistic-insight.com", "https://www.autistic-insight.com"], supports_credentials=True)\
+CORS(petfinder_bp, origins=["https://autistic-insight.com", "https://www.autistic-insight.com"])\
 ' "$DEST_BACKEND_DIR/routes.py"
 
 # Clean up the file - remove shebang, placeholder comments, and fix imports

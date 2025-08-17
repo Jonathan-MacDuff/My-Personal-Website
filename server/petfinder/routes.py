@@ -3,7 +3,7 @@ petfinder_bp = Blueprint("petfinder", __name__)
 
 # Keep your CORS setup for the blueprint
 from flask_cors import CORS
-CORS(petfinder_bp, origins=["https://autistic-insight.com", "https://www.autistic-insight.com"], supports_credentials=True)
+CORS(petfinder_bp, origins=["https://autistic-insight.com", "https://www.autistic-insight.com"])
 
 
 from flask_restful import Resource
