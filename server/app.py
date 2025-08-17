@@ -17,8 +17,8 @@ app.register_blueprint(petfinder_bp, url_prefix="/petfinder")
 
 db.init_app(app)
 migrate.init_app(app, db)
-# socketio.init_app(app, cors_allowed_origins="*", transports=["websocket"])
-# import petfinder.socketio_handlers
+socketio.init_app(app, cors_allowed_origins="*", transports=["websocket", "polling"])
+import petfinder.socketio_handlers
 
 CORS(app, resources={r"/api/*": {"origins": [
     "https://autistic-insight.com",
