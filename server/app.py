@@ -55,24 +55,30 @@ def contact():
 # Serve Pet-Finder static assets (CSS, JS)
 @app.route('/Pet-Finder/static/<path:filename>')
 def serve_pet_finder_static(filename):
+    print(f"🟦 Serving static asset: /Pet-Finder/static/{filename}")
     return send_from_directory('../client/public/Pet-Finder/static', filename)
 
 # Main Pet-Finder routes
-@app.route('/Pet-Finder')
-@app.route('/Pet-Finder/')
+@app.route('/Pet-Finder', strict_slashes=False)
+@app.route('/Pet-Finder/', strict_slashes=False)
 def serve_pet_finder_root():
+    print("🟩 Serving Pet-Finder root")
     return send_from_directory('../client/public/Pet-Finder', 'index.html')
 
 # Catch-all for Pet-Finder SPA routes (must be last)
-@app.route('/Pet-Finder/<path:path>')
+@app.route('/Pet-Finder/<path:path>', strict_slashes=False)
 def serve_pet_finder_spa(path):
+    print(f"🟨 Pet-Finder SPA route: /Pet-Finder/{path}")
     # Check if it's a static asset file (favicon, manifest, etc.)
     if '.' in path and '/' not in path:
+        print(f"🟧 Trying to serve asset: {path}")
         try:
             return send_from_directory('../client/public/Pet-Finder', path)
         except:
+            print(f"🟥 Asset not found: {path}")
             pass
     # For all SPA routes, serve index.html
+    print(f"🟪 Serving index.html for SPA route: {path}")
     return send_from_directory('../client/public/Pet-Finder', 'index.html')
 
 if __name__ == "__main__":
