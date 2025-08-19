@@ -8,7 +8,7 @@ from petfinder.routes import petfinder_bp
 from petfinder.extensions import db, migrate, socketio
 from petfinder.config import Config
 
-app = Flask(__name__)
+app = Flask(__name__, static_folder=None)
 
 app.config.from_object(Config)
 
@@ -49,10 +49,30 @@ def contact():
         print("Email error:", e)
         return jsonify({"error": "Email failed to send"}), 500
 
+# Pet-Finder SPA routes - order matters!
+# Most specific routes first, then catch-all
+
+# Serve Pet-Finder static assets (CSS, JS)
+@app.route('/Pet-Finder/static/<path:filename>')
+def serve_pet_finder_static(filename):
+    return send_from_directory('../client/public/Pet-Finder/static', filename)
+
+# Main Pet-Finder routes
 @app.route('/Pet-Finder')
 @app.route('/Pet-Finder/')
+def serve_pet_finder_root():
+    return send_from_directory('../client/public/Pet-Finder', 'index.html')
+
+# Catch-all for Pet-Finder SPA routes (must be last)
 @app.route('/Pet-Finder/<path:path>')
-def serve_pet_finder(path=''):
+def serve_pet_finder_spa(path):
+    # Check if it's a static asset file (favicon, manifest, etc.)
+    if '.' in path and '/' not in path:
+        try:
+            return send_from_directory('../client/public/Pet-Finder', path)
+        except:
+            pass
+    # For all SPA routes, serve index.html
     return send_from_directory('../client/public/Pet-Finder', 'index.html')
 
 if __name__ == "__main__":
