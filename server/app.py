@@ -28,6 +28,7 @@ CORS(app, resources={r"/api/*": {"origins": [
 
 @app.route('/')
 def index():
+    print("🟢 Main index route hit")
     return 'OK', 200
 
 @app.route("/api/contact", methods=["POST"])
@@ -80,6 +81,17 @@ def serve_pet_finder_spa(path):
     # For all SPA routes, serve index.html
     print(f"🟪 Serving index.html for SPA route: {path}")
     return send_from_directory('../client/public/Pet-Finder', 'index.html')
+
+# Add request logging middleware
+@app.before_request
+def log_request():
+    print(f"🌐 Flask received: {request.method} {request.path}")
+
+# Debug catch-all to see what requests are actually hitting Flask
+@app.route('/<path:path>')
+def catch_all_debug(path):
+    print(f"🔍 Catch-all debug: Flask received request for /{path}")
+    return f"Debug: Flask received /{path}", 404
 
 if __name__ == "__main__":
     socketio.run(app, debug=True)
