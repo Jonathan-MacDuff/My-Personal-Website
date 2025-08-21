@@ -8,10 +8,16 @@ echo "Updating BACKEND_URL for production..."
 sed -i.bak 's|const BACKEND_URL = ""|const BACKEND_URL = "https://my-personal-website-ss2x.onrender.com/petfinder"|' src/config.js
 sed -i.bak 's|const socket = io("http://localhost:5555"|const socket = io("https://my-personal-website-ss2x.onrender.com"|' src/components/Conversation.js
 
+echo "Switching to HashRouter for embedded deployment..."
+sed -i.bak2 's|import { BrowserRouter }|import { HashRouter }|' src/index.js
+sed -i 's|<BrowserRouter basename="/Pet-Finder">|<HashRouter>|' src/index.js
+sed -i 's|</BrowserRouter>|</HashRouter>|' src/index.js
+
 PUBLIC_URL=/Pet-Finder npm run build
 
 mv src/config.js.bak src/config.js
 mv src/components/Conversation.js.bak src/components/Conversation.js
+mv src/index.js.bak2 src/index.js
 
 rm -rf ../../client/public/Pet-Finder/*
 cp -r build/* ../../client/public/Pet-Finder/
