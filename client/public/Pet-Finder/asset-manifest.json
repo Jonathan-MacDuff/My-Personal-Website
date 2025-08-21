@@ -1,13 +1,13 @@
 {
   "files": {
     "main.css": "/Pet-Finder/static/css/main.5debf246.css",
-    "main.js": "/Pet-Finder/static/js/main.bd5bd801.js",
+    "main.js": "/Pet-Finder/static/js/main.aa23871f.js",
     "index.html": "/Pet-Finder/index.html",
     "main.5debf246.css.map": "/Pet-Finder/static/css/main.5debf246.css.map",
-    "main.bd5bd801.js.map": "/Pet-Finder/static/js/main.bd5bd801.js.map"
+    "main.aa23871f.js.map": "/Pet-Finder/static/js/main.aa23871f.js.map"
   },
   "entrypoints": [
     "static/css/main.5debf246.css",
-    "static/js/main.bd5bd801.js"
+    "static/js/main.aa23871f.js"
   ]
 }
