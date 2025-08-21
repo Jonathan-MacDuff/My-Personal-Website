@@ -57,14 +57,14 @@ def contact():
 @app.route('/Pet-Finder/static/<path:filename>')
 def serve_pet_finder_static(filename):
     print(f"🟦 Serving static asset: /Pet-Finder/static/{filename}")
-    return send_from_directory('../client/public/Pet-Finder/static', filename)
+    return send_from_directory('static/pet-finder/static', filename)
 
 # Main Pet-Finder routes
 @app.route('/Pet-Finder', strict_slashes=False)
 @app.route('/Pet-Finder/', strict_slashes=False)
 def serve_pet_finder_root():
     print("🟩 Serving Pet-Finder root")
-    return send_from_directory('../client/public/Pet-Finder', 'index.html')
+    return send_from_directory('static/pet-finder', 'index.html')
 
 # Catch-all for Pet-Finder SPA routes (must be last)
 @app.route('/Pet-Finder/<path:path>', strict_slashes=False)
@@ -74,13 +74,13 @@ def serve_pet_finder_spa(path):
     if '.' in path and '/' not in path:
         print(f"🟧 Trying to serve asset: {path}")
         try:
-            return send_from_directory('../client/public/Pet-Finder', path)
+            return send_from_directory('static/pet-finder', path)
         except:
             print(f"🟥 Asset not found: {path}")
             pass
     # For all SPA routes, serve index.html
     print(f"🟪 Serving index.html for SPA route: {path}")
-    return send_from_directory('../client/public/Pet-Finder', 'index.html')
+    return send_from_directory('static/pet-finder', 'index.html')
 
 # Add request logging middleware
 @app.before_request
