@@ -30,7 +30,14 @@ SRC_BACKEND_DIR="../server"
 DEST_BACKEND_DIR="../../server/petfinder"
 
 # rsync excluding migrations folder and database files (app.db, instance folder, migrations)
-rsync -av --exclude='__pycache__' --exclude='*.pyc' --exclude='*.pyo' --exclude='migrations' --exclude='instance' --exclude='app.db' --exclude='run.py' --exclude='.env' "$SRC_BACKEND_DIR/" "$DEST_BACKEND_DIR/"
+rsync -av --exclude='__pycache__' --exclude='*.pyc' --exclude='*.pyo' --exclude='migrations' --exclude='instance' --exclude='app.db' --exclude='run.py' --exclude='.env' --exclude='requirements.txt' "$SRC_BACKEND_DIR/" "$DEST_BACKEND_DIR/"
+
+echo "Converting absolute imports back to relative for embedded version..."
+find "$DEST_BACKEND_DIR" -name "*.py" -exec sed -i 's/from extensions/from .extensions/g' {} \;
+find "$DEST_BACKEND_DIR" -name "*.py" -exec sed -i 's/from models/from .models/g' {} \;
+find "$DEST_BACKEND_DIR" -name "*.py" -exec sed -i 's/from config/from .config/g' {} \;
+find "$DEST_BACKEND_DIR" -name "*.py" -exec sed -i 's/from routes/from .routes/g' {} \;
+find "$DEST_BACKEND_DIR" -name "*.py" -exec sed -i 's/from __init__/from ./g' {} \;
 
 # Fix the __init__.py to not create an app, just expose what's needed
 cat > "$DEST_BACKEND_DIR/__init__.py" << 'EOF'
